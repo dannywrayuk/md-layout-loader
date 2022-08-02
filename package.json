@@ -1,0 +1,23 @@
+{
+  "name": "md-layout-loader",
+  "version": "1.0.0",
+  "description": "A Webpack loader for wrapping markdown in a Layout.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dannywrayuk/md-layout-loader.git"
+  },
+  "author": "dannywrayuk",
+  "license": "ISC",
+  "homepage": "https://github.com/dannywrayuk/md-layout-loader#readme",
+  "dependencies": {
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  }
+}
