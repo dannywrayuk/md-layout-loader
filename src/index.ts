@@ -4,25 +4,15 @@ import { LoaderContext } from "webpack";
 type Metadata = object | undefined;
 
 type MetadataMutator = (
-  metadata: Metadata,
-  filePath: string,
-  content: string
+  metadata?: Metadata,
+  filePath?: string,
+  content?: string
 ) => Metadata;
 
-interface LoaderOptions {
-  layoutFile: string;
-  metadataMutator: MetadataMutator;
+export interface LoaderOptions {
+  layoutFile?: string;
+  metadataMutator?: MetadataMutator;
 }
-
-const mutateMetadata = (
-  mutate: MetadataMutator,
-  data: Metadata,
-  filepath: string,
-  content: string
-): object => {
-  if (!mutate) return data || {};
-  return mutate(data, filepath, content) || {};
-};
 
 const defaultLayoutLocation: string = "components/MDX/Layout";
 const appendLayoutDefinition = (
@@ -30,9 +20,14 @@ const appendLayoutDefinition = (
   meta: Metadata,
   layoutFile: string = defaultLayoutLocation
 ): string => {
+  if (typeof layoutFile !== "string")
+    throw TypeError(
+      "layoutFile is not a string. Received " + typeof layoutFile
+    );
   return (
     `import withLayout from "${layoutFile}";
-    export default withLayout(${JSON.stringify(meta)});` + content
+    export default withLayout(${JSON.stringify(meta)});
+    ` + content
   );
 };
 
@@ -43,7 +38,8 @@ export default async function (
   const { layoutFile, metadataMutator } = this.getOptions();
   const { content, data } = matter(src || "");
   const filePath: string = this.resourcePath.replace(process.cwd(), "");
-  const meta: object = mutateMetadata(metadataMutator, data, filePath, content);
+  const meta: object =
+    (metadataMutator ? metadataMutator(data, filePath, content) : data) || {};
   const code: string = appendLayoutDefinition(content, meta, layoutFile);
   return this.async()(null, code);
 }

@@ -5,7 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "watch": "tsc -w"
+    "build:w": "tsc -w",
+    "test": "jest",
+    "test:w": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -15,9 +17,13 @@
   "license": "ISC",
   "homepage": "https://github.com/dannywrayuk/md-layout-loader#readme",
   "dependencies": {
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "webpack": "^5.74.0"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.7",
     "typescript": "^4.7.4"
   }
 }
