@@ -16,7 +16,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Build
+      - name: Test
         run: npm run test
 
       - name: Archive Production Artifact
