@@ -1,13 +1,9 @@
 name: Publish
 on:
   workflow_call:
-    inputs:
-      release:
-        required: true
-        type: string
-
 jobs:
-  deploy:
+  publish:
+    name: Publish
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -24,4 +20,6 @@ jobs:
           path: dist
 
       - name: Publish
-        run: echo ${{ inputs.release }}
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,10 +1,37 @@
-name: Build and Test
+name: Pull Request Merged
 on:
   pull_request:
-    branches: "*"
-  workflow_dispatch:
+    branches: [master]
+    types:
+      - closed
 
 jobs:
-  build-test:
-    name: 🛠
-    uses: ./.github/workflows/build-test.yml
+  patch:
+    name: Bump Version (patch)
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'Patch')
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/bump-version.yml
+    with:
+      type: patch
+
+  minor:
+    name: Bump Version (minor)
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'Minor')
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/bump-version.yml
+    with:
+      type: minor
+
+  major:
+    name: Bump Version (major)
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'Major')
+    runs-on: ubuntu-latest
+    uses: ./.github/workflows/bump-version.yml
+    with:
+      type: major
