@@ -1,0 +1,10 @@
+name: Build and Test
+on:
+  pull_request:
+    branches: "*"
+  workflow_dispatch:
+
+jobs:
+  build-test:
+    name: 🛠
+    uses: ./.github/workflows/build-test.yml

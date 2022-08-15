@@ -1,0 +1,27 @@
+name: Publish
+on:
+  workflow_call:
+    inputs:
+      release:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output
+          path: dist
+
+      - name: Publish
+        run: echo ${{ inputs.release }}
