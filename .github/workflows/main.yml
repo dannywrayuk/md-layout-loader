@@ -10,3 +10,10 @@ jobs:
   build-test:
     name: 🛠
     uses: ./.github/workflows/build-test.yml
+
+  publish:
+    name: 🚀
+    needs: build-test
+    if: ${{ startsWith(github.event.head_commit.message, '🚀 Release v') }}
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit

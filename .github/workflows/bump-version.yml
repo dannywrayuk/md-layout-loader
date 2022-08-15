@@ -22,7 +22,18 @@ jobs:
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Version Bump
-        run: npm version ${{ inputs.type }} -m "Release v%s (${{ inputs.type }})"
+        run: npm version ${{ inputs.type }} -m "🚀 Release v%s (${{ inputs.type }})"
 
       - name: Push Bump
         run: git push && git push --tags
+
+      - name: Store New Version
+        run: NEW_VERSION=$(npm pkg get version | sed 's/"//g')
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v$NEW_VERSION
+          release_name: Release v$NEW_VERSION
