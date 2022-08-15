@@ -16,6 +16,11 @@ jobs:
         with:
           ref: master
 
+      - name: Git Config
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
       - name: Version Bump
         run: npm version ${{ inputs.type }} -m "Release v%s (${{ inputs.type }})"
 
