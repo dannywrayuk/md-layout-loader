@@ -1,6 +1,7 @@
 name: Publish
 on:
   workflow_call:
+
 jobs:
   publish:
     name: Publish
@@ -8,6 +9,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
+        with:
+          ref: master
       - uses: actions/setup-node@v3
         with:
           node-version: "16.x"

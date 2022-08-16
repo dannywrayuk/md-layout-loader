@@ -1,4 +1,4 @@
-name: Pushed Changes
+name: Push Event
 on:
   push:
     branches: [master]
@@ -10,10 +10,20 @@ jobs:
   build-test:
     name: 🛠
     uses: ./.github/workflows/build-test.yml
-
-  publish:
-    name: 🚀
+  bump-version:
+    name: 📈
+    if: github.ref == 'refs/heads/master'
     needs: build-test
-    if: ${{ startsWith(github.event.head_commit.message, '🚀 Release v') }}
-    uses: ./.github/workflows/publish.yml
+    uses: ./.github/workflows/bump-version.yml
     secrets: inherit
+    with:
+      type: |
+      (startsWith(github.event.head_commit.message, '(minor)') && minor)
+      || (startsWith(github.event.head_commit.message, '(major)') && major)
+      || patch
+  # publish:
+  #   name: 🚀
+  #   if: github.ref == 'refs/heads/master'
+  #   needs: bump-version
+  #   uses: ./.github/workflows/publish.yml
+  #   secrets: inherit
