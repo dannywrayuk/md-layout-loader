@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/bump-version.yml
     secrets: inherit
     with:
-      type: |
+      type: >
         ${{(startsWith(github.event.head_commit.message, '(minor)') && 'minor')
         || (startsWith(github.event.head_commit.message, '(major)') && 'major')
         || 'patch'}}
