@@ -21,9 +21,9 @@ jobs:
         ${{(startsWith(github.event.head_commit.message, '(minor)') && 'minor')
         || (startsWith(github.event.head_commit.message, '(major)') && 'major')
         || 'patch'}}
-  # publish:
-  #   name: 🚀
-  #   if: github.ref == 'refs/heads/master'
-  #   needs: bump-version
-  #   uses: ./.github/workflows/publish.yml
-  #   secrets: inherit
+  publish:
+    name: 🚀
+    if: github.ref == 'refs/heads/master'
+    needs: bump-version
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit
