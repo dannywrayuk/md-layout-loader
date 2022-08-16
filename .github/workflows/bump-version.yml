@@ -1,4 +1,4 @@
-name: Bump Version
+name: Bump Package Version
 on:
   workflow_call:
     inputs:
@@ -7,8 +7,8 @@ on:
         type: string
 
 jobs:
-  create-release:
-    name: Bump Version
+  bump-version:
+    name: Bump Package Version
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -37,4 +37,3 @@ jobs:
         with:
           tag_name: v${{ env.NEW_VERSION }}
           release_name: Release v${{ env.NEW_VERSION }}
-
