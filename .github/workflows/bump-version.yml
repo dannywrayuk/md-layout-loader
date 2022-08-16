@@ -28,12 +28,13 @@ jobs:
         run: git push && git push --tags
 
       - name: Store New Version
-        run: NEW_VERSION=$(npm pkg get version | sed 's/"//g')
+        run: echo "NEW_VERSION=$(npm pkg get version | sed 's/"//g')" >> $GITHUB_ENV
 
       - name: Create Release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v$NEW_VERSION
-          release_name: Release v$NEW_VERSION
+          tag_name: v${{ env.NEW_VERSION }}
+          release_name: Release v${{ env.NEW_VERSION }}
+
