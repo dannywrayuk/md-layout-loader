@@ -37,8 +37,4 @@ jobs:
         with:
           tag_name: v${{ env.NEW_VERSION }}
           release_name: Release v${{ env.NEW_VERSION }}
-  publish:
-    name: 🚀
-    needs: create-release
-    uses: ./.github/workflows/publish.yml
-    secrets: inherit
+
