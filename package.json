@@ -1,6 +1,6 @@
 {
   "name": "@dannywrayuk/md-layout-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Webpack loader for wrapping markdown in a Layout.",
   "main": "dist/index.js",
   "scripts": {
